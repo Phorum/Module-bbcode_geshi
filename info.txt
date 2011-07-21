@@ -1,0 +1,19 @@
+title: BBcode GeSHi (code syntax highlighting)
+desc:  This module implements syntax highlighting by extending the BBcode [code] tag. It can be used for adding syntax highlighted program code to messages. For highlighting, the excellent <a href="http://qbnz.com/highlighter">GeSHi</a> (Generic Syntax Highlighter) package is used.
+version: 1.0.4
+require_version: 5.2.0
+category: bbcode
+
+hook: lang|
+hook: css_register|phorum_mod_bbcode_geshi_css_register
+hook: javascript_register|phorum_mod_bbcode_geshi_javascript_register
+hook: format|phorum_mod_bbcode_geshi_format
+hook: format_fixup|phorum_mod_bbcode_geshi_format_fixup
+hook: before_editor|phorum_mod_bbcode_geshi_before_editor
+
+# This should be the case already by means of the BBcode module priorities.
+priority: run hook format before bbcode
+
+# To be able to override the Editor Tools [code] button behavior.
+priority: run hook javascript_register after bbcode
+

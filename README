@@ -1,0 +1,106 @@
+Module  : BBcode GeSHi (code syntax highlighting)
+Version : 1.0.4
+Author  : Maurice Makaay <maurice@phorum.org>
+
+This module implements syntax highlighting by extending the BBcode
+[code] tag. It can be used for adding syntax highlighted program code to
+messages. For highlighting, the excellent GeSHi (Generic Syntax Highlighter)
+package is used.
+
+1. Installation
+2. Examples
+3. Editor Tools support
+4. Upgrading the GeSHi package
+
+
+1. Installation:
+----------------
+
+  - Unpack the archive;
+
+  - Move the directory "bbcode_geshi" to the directory "mods"
+    within your Phorum installation;
+
+  - Login as administrator in Phorum's administrative interface and
+    go to the "Modules" section;
+
+  - Enable the module "BBcode GeSHi (code syntax highlighting)";
+
+  - After this, go to the module's settings screen to configure
+    the settings for this module.
+
+
+2. Examples:
+------------
+
+  For doing syntax highlighting, the code tag has to be told what kind of
+  coding language is contained in it. The general basic syntax is:
+
+    [code="language"]
+    block of;
+    programming code;
+    that has to be {
+      syntax;
+      highlighted;
+    }
+    [/code]
+
+  All available languages can be found in the mods/bbcode_geshi/geshi/geshi/
+  directory. The basename of the file (filename without ".php" at the end)
+  can be used as a language. For example, PHP code can be added using:
+
+    [code="php"]
+    function say_hello($who) {
+        print "Hello, $who!\n";
+    }
+    say_hello("World");
+    [/code]
+
+  For adding line numbering to the highlighted code, use one of the
+  following syntaxes:
+
+    [code="language" number] ... [/code]         to start numbering at 1
+    [code="language" number="1234"] ... [/code]  to start numbering at 1234
+
+  For those who are accustomed to the original phpBB tags that are used for
+  GeSHi, it is also possible to use [syntax="language"]:
+
+    [syntax="language" number="1234"] ... [/syntax]
+
+
+3. Editor Tools support:
+------------------------
+
+  If you have installed and enabled the Editor Tools module and if you have
+  enabled the [code] tool button in the BBcode configuration, then you can
+  also make use of Editor Tools support by this module.
+
+  In the module settings, you can enable the tool button support. If enabled,
+  the original tool button behavior (adding [code]..[/code] to the message)
+  will be overridden. Instead it will show a drop down list of languages and
+  some options for line numbering, which can be used to add the correct [code]
+  tag to the message in a very easy way.
+
+  What languages are shown in the drop down list is determined by the
+  settings that you do in the admin module settings for this module.
+  There you can select exactly what languages will be available in the
+  menu and whether line numbering support is enabled.
+
+
+4. Upgrading the GeSHi package:
+-------------------------------
+
+  Upgrading the GeSHi package is quite easy. Here are the neccessary steps:
+
+    - Download GeSHi from the web site http://qbnz.com/highlighter/
+
+    - Unpack the downloaded zip file.
+
+    - Copy "geshi.php" and the "geshi" directory to the "geshi" directory
+      that can be found below this module's directory. The other files and
+      directories are not needed for GeSHi to function.
+
+    - Since we provide a plain text syntax ourselves (resulting in the
+      standard [code] tag), we do not need the "text" syntax provided by
+      GeSHi. Delete "geshi/geshi/text.php".
+
