@@ -1,5 +1,5 @@
 Module  : BBcode GeSHi (code syntax highlighting)
-Version : 1.0.4
+Version : 1.0.5
 Author  : Maurice Makaay <maurice@phorum.org>
 
 This module implements syntax highlighting by extending the BBcode
@@ -92,7 +92,7 @@ package is used.
 
   Upgrading the GeSHi package is quite easy. Here are the neccessary steps:
 
-    - Download GeSHi from the web site http://qbnz.com/highlighter/
+    - Download GeSHi from the web site http://sourceforge.net/projects/geshi/
 
     - Unpack the downloaded zip file.
 

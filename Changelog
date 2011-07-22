@@ -1,6 +1,24 @@
 Changelog:
 ----------
 
+2011-07-22 v1.0.5
+
+    - Fixed a really edge-case MSIE8 CSS rendering issue with this module.
+      The issue caused MSIE8 to ignore parts of the total CSS code,
+      resulting in random page rendering issues.
+
+    - Upgraded the included GeSHi package to version to 1.0.8.10.
+
+    - Fixed PHP warning:
+      Deprecated: Function split() is deprecated in ... bbcode_geshi.php
+
+    - Fixed incorrect stripping of leading white space. Only leading white
+      lines have to be stripped.
+
+    - Improved rebuilding the CSS cache for this module, by also rebuilding
+      it when the bbcode_geshi.php module file is updated. This improves
+      rebuilding the cache during module development and after upgrades.
+
 2010-06-08 v1.0.4
 
     - Upgraded the included GeSHi package to version to 1.0.8.8.
