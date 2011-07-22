@@ -40,7 +40,7 @@ function mod_bbcode_geshi_css()
     // We should only be setting an id here, but the GeSHi code does not
     // allow combining this call with set_overall_class(). Therefore, we
     // sneak in the class here, which GeSHi happily accepts.
-    $geshi->set_overall_id('#phorum .bbcode_geshi');
+    $geshi->set_overall_id('phorum .bbcode_geshi');
 
     $languages = array();
     if ($handle = opendir($geshi->language_path)) {
