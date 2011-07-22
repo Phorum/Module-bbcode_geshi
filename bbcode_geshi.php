@@ -15,7 +15,8 @@ function phorum_mod_bbcode_geshi_css_register($data)
         "module"    => "bbcode_geshi",
         "where"     => "after",
         "source"    => "function(mod_bbcode_geshi_css)",
-        "cache_key" => filemtime(GESHI_PATH."/geshi.php")
+        "cache_key" => filemtime(GESHI_PATH."/geshi.php") .
+                       filemtime(__FILE__)
     );
 
     $data['register'][] = array(
@@ -35,7 +36,11 @@ function mod_bbcode_geshi_css()
     include_once(GESHI_PATH . '/geshi.php');
 
     $geshi = new GeSHi();
-    $geshi->set_overall_class('bbcode_geshi');
+
+    // We should only be setting an id here, but the GeSHi code does not
+    // allow combining this call with set_overall_class(). Therefore, we
+    // sneak in the class here, which GeSHi happily accepts.
+    $geshi->set_overall_id('#phorum .bbcode_geshi');
 
     $languages = array();
     if ($handle = opendir($geshi->language_path)) {
@@ -57,9 +62,6 @@ function mod_bbcode_geshi_css()
         $add_css = preg_replace('/^\/\*\*.*?\*\//s', '', $add_css);
         $css .= $add_css;
     }
-
-    // For more specific matching, we add #phorum.
-    $css = preg_replace('/^\./m', '#phorum .', $css);
 
     return $css;
 }
@@ -262,8 +264,8 @@ function phorum_mod_bbcode_geshi_format_fixup($messages)
                 // Remove Phorum's break tags.
                 $code = str_replace('<phorum break>', '', $code);
 
-                // Remove surrounding white space.
-                $code = preg_replace('/^\s+|\s+$/', '', $code);
+                // Remove trailing white space and leading white lines.
+                $code = preg_replace('/^\s*[\r\n]+|\s+$/', '', $code);
 
                 // Unescape special HTML characters. GeSHi expects
                 // them to be not HTML escaped.
@@ -293,7 +295,7 @@ function phorum_mod_bbcode_geshi_format_fixup($messages)
                     foreach ($options as $option)
                     {
                         if (strstr($option, '=')) {
-                            list ($key, $value) = split('=', $option, 2);
+                            list ($key, $value) = explode('=', $option, 2);
                         } else {
                             $value = 1;
                             $key   = $option;
