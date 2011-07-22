@@ -11,7 +11,7 @@ include_once('./mods/bbcode_geshi/defaults.php');
 // -------------------------------------------------------------------
 ?>
 <div style="text-align:right">
-  <a href="http://qbnz.com/highlighter/"><img style="border:none" border="0"
+  <a href="http://sourceforge.net/projects/geshi/"><img style="border:none" border="0"
     src="<?php print $PHORUM[http_path] ?>/mods/bbcode_geshi/geshi.png"/></a>
 </div>
 <?php
