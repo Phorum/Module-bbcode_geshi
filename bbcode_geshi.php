@@ -11,12 +11,20 @@ include_once('./mods/bbcode_geshi/defaults.php');
 // code for adding / overriding some definitions from our module templates.
 function phorum_mod_bbcode_geshi_css_register($data)
 {
+    global $PHORUM;
+
+    // A cache key part for the activated languages.
+    $languages = empty($PHORUM['mod_bbcode_geshi']['languages'])
+               ? ''
+               : md5(implode(":", $PHORUM['mod_bbcode_geshi']['languages']));
+
     $data['register'][] = array(
         "module"    => "bbcode_geshi",
         "where"     => "after",
         "source"    => "function(mod_bbcode_geshi_css)",
         "cache_key" => filemtime(GESHI_PATH."/geshi.php") .
-                       filemtime(__FILE__)
+                       filemtime(__FILE__) .
+                       $languages
     );
 
     $data['register'][] = array(
@@ -32,34 +40,28 @@ function phorum_mod_bbcode_geshi_css_register($data)
 // the above hook function).
 function mod_bbcode_geshi_css()
 {
-    // Let GeSHi generate a stylesheet.
+    global $PHORUM;
+
+    // No languages available? Should not happen, but let's be prepared.
+    if (empty($PHORUM['mod_bbcode_geshi']['languages'])) {
+        return '';
+    }
+
+    // We use GeSHi to generate the required stylesheet code.
     include_once(GESHI_PATH . '/geshi.php');
 
     $geshi = new GeSHi();
 
-    // We should only be setting an id here, but the GeSHi code does not
-    // allow combining this call with set_overall_class(). Therefore, we
-    // sneak in the class here, which GeSHi happily accepts.
-    $geshi->set_overall_id('phorum .bbcode_geshi');
-
-    $languages = array();
-    if ($handle = opendir($geshi->language_path)) {
-        while (($file = readdir($handle)) !== false) {
-            $pos = strpos($file, '.');
-            if ($pos > 0 && substr($file, $pos) == '.php') {
-                $languages[] = substr($file, 0, $pos);
-            }
-        }
-        closedir($handle);
-    }
-    sort($languages);
+    // The "@MARK@" is used below to prepend our #phorum id in the CSS selectors.
+    $geshi->set_overall_class('@MARK@bbcode_geshi');
 
     $css = '';
-    foreach ($languages as $language)
+    foreach ($PHORUM['mod_bbcode_geshi']['languages'] as $language)
     {
         $geshi->set_language($language);
         $add_css = $geshi->get_stylesheet(false);
         $add_css = preg_replace('/^\/\*\*.*?\*\//s', '', $add_css);
+        $add_css = preg_replace('/\.([^\.]+)\.@MARK@/', '#phorum .\\1.', $add_css);
         $css .= $add_css;
     }
 

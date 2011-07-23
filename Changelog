@@ -19,6 +19,9 @@ Changelog:
       it when the bbcode_geshi.php module file is updated. This improves
       rebuilding the cache during module development and after upgrades.
 
+    - The CSS code now only contains the code for the activated languages
+      in the module configuration.
+
 2010-06-08 v1.0.4
 
     - Upgraded the included GeSHi package to version to 1.0.8.8.
