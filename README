@@ -1,11 +1,8 @@
-Module  : BBcode GeSHi (code syntax highlighting)
-Version : 1.0.5
+Module  : @TITLE@
+Version : @VERSION@
 Author  : Maurice Makaay <maurice@phorum.org>
 
-This module implements syntax highlighting by extending the BBcode
-[code] tag. It can be used for adding syntax highlighted program code to
-messages. For highlighting, the excellent GeSHi (Generic Syntax Highlighter)
-package is used.
+@DESCRIPTION@
 
 1. Installation
 2. Examples
@@ -18,13 +15,13 @@ package is used.
 
   - Unpack the archive;
 
-  - Move the directory "bbcode_geshi" to the directory "mods"
+  - Move the directory "@MODULE_ID@" to the directory "mods"
     within your Phorum installation;
 
   - Login as administrator in Phorum's administrative interface and
     go to the "Modules" section;
 
-  - Enable the module "BBcode GeSHi (code syntax highlighting)";
+  - Enable the module "@TITLE@";
 
   - After this, go to the module's settings screen to configure
     the settings for this module.
