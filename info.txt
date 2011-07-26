@@ -1,5 +1,6 @@
 title: BBcode GeSHi (code syntax highlighting)
 desc:  This module implements syntax highlighting by extending the BBcode [code] tag. It can be used for adding syntax highlighted program code to messages. For highlighting, the excellent <a href="http://qbnz.com/highlighter/">GeSHi</a> (Generic Syntax Highlighter) package is used.
+author: Maurice Makaay <maurice@phorum.org>
 version: 1.0.5
 require_version: 5.2.0
 category: bbcode
